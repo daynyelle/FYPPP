@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Dream Store</title>
+    <link rel="stylesheet" type="text/css" href="../DreamStore.css"/>
+  </head>
+  <body>
+    <div id = "navi">
+        <h1>DREAM STORE</h1>
+        <h2>YO DREAM</h2>
+
+        <nav>
+          <ul>
+            <li class = "left"><a href="DreamStore.html">HOME</a></li>
+            <li class = "left"><a href="Music.html">MUSIC</a></li>
+            <li class = "right"><a href="cart.html">CART<span>0</span></a></li>
+          </ul>
+        </nav>
+    </div>
+
+    <div id = "homep">
+
+      <div class="slideshow-container">
+
+        <div class="mySlides fade">
+          <img src="../images/mfalgrp.jpeg" style="width:100%">
+          <div class="text">My First and Last</div>
+        </div>
+
+        <div class="mySlides fade">
+          <img src="../images/weyounggrp.jpeg" style="width:100%">
+          <div class="text">We Young</div>
+        </div>
+
+        <div class="mySlides fade">
+          <img src="../images/wgugrp.jpg" style="width:100%">
+          <div class="text">We Go Up</div>
+        </div>
+
+        <div class="mySlides fade">
+          <img src="../images/weboomgrp.jpg" style="width:100%">
+          <div class="text">We Boom</div>
+        </div>
+
+        <div class="mySlides fade">
+          <img src="../images/ridingrp.jpg" style="width:100%">
+          <div class="text">Reload</div>
+        </div>
+
+        <div class="mySlides fade">
+          <img src="../images/hsgrp.jpg" style="width:100%">
+          <div class="text">Hot Sauce</div>
+        </div>
+
+        <div class="mySlides fade">
+          <img src="../images/helfugrp.jpg" style="width:100%">
+          <div class="text">Hello Future</div>
+        </div>
+
+        <div class="mySlides fade">
+          <img src="../images/glimogrp.jpg" style="width:100%">
+          <div class="text">Glitch Mode</div>
+        </div>
+
+        <div class="mySlides fade">
+          <img src="../images/bbgrp.jpg" style="width:100%">
+          <div class="text">BeatBox</div>
+        </div>
+
+      </div>
+
+      <div class = "achievements">
+        <table>
+          <tr>
+            <th>NCT Dream<img src="../images/dreamieslogo.jpg"></th>
+          </tr>
+          <tr>
+            <td>South Korean boy band formed by <a href="https://www.smentertainment.com/" target="_blank">SM Entertainment</a>
+            in 2016. They debuted on August 25, 2016 with seven members -
+            Mark, Renjun, Jeno, Haechan, Jaemin, Chenle and Jisung - with an
+            average age of 15.6 years old.</td>
+          </tr>
+          <tr>
+            <td>They have released four EPs and 2 Studio Albums since their debut and
+          has made many achievements.</td>
+          </tr>
+          <tr>
+            <td class = "logo"><a href="https://www.instagram.com/nct_dream/" target="_blank"><img src = "../images/iglogo.jpg"></a><a href="https://twitter.com/NCTsmtown_DREAM" target="_blank">
+            <img src = "../images/twtlogo.jpg"></a>
+              <a href="https://www.youtube.com/channel/UCXURHJRGr4-EB3l87kcbElw"><img src = "../images/ytlogo.jpg" target="_blank"></a></td>
+        </table>
+
+        <br>
+
+
+
+      </div>
+
+
+      <br>
+
+      <div style="text-align:center">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+
+      <script>
+        let slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+          let i;
+          let slides = document.getElementsByClassName("mySlides");
+          let dots = document.getElementsByClassName("dot");
+          for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+          }
+          slideIndex++;
+          if (slideIndex > slides.length) {slideIndex = 1}
+          for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+          }
+          slides[slideIndex-1].style.display = "block";
+          dots[slideIndex-1].className += " active";
+          setTimeout(showSlides, 3000);
+        }
+        </script>
+
+      </div>
+
+
+
+
+
+
+
+  </body>
+</html>

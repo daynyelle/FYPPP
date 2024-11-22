@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Dream Store</title>
+    <link rel="stylesheet" type="text/css" href="../DreamStore.css"/>
+  </head>
+  <body>
+    <div id = "navi">
+        <h1>DREAM STORE</h1>
+        <h2>CART</h2>
+
+        <nav>
+          <ul>
+            <li class = "left"><a href="DreamStore.html">HOME</a></li>
+            <li class = "left"><a href="Music.html">MUSIC</a></li>
+            <li class = "right"><a href="cart.html">CART<span>0</span></a></li>
+          </ul>
+        </nav>
+    </div>
+
+    <div class = "cart-container">
+      <div class = "product-header">
+        <h5 class = "product-title">PRODUCT</h5>
+        <h5 class = "price">PRICE</h5>
+        <h5 class = "quantity">QUANTITY</h5>
+        <h5 class = "total">TOTAL</h5>
+      </div>
+
+      <div class = "products">
+
+      </div>
+
+<br>
+<br>
+
+    </div>
+
+    <div class = "form">
+      <form method ="post" action = "submit.html">
+        <fieldset>
+          <h4>Payment</h4>
+
+
+            <label>
+            <br>
+            Name:
+            <br>
+            <input type = "text" id = "name" name = "name" pattern = "[A-Za-z]{1,32}" required>
+            </label>
+
+
+              <br>
+              <br>
+
+             <label>
+               Email Address:
+               <br>
+                <input type="email" id="em" name="email" required>
+             </label>
+
+               <br>
+               <br>
+
+             <label>
+               Contact Number:
+               <br>
+                <input type="number" id="contact" name="contact" maxlength="8" pattern="[0-9]{8}" title="8 digit telephone number" requied>
+             </label>
+
+             <br>
+             <br>
+
+             <label>
+               Credit Card Number:
+               <br>
+               <input type="number" id="ccnum" name="creditcard" maxlength="16" pattern="[0-9]{16}" required>
+             </label>
+
+             <br>
+             <br>
+
+             <label>
+               Total Amount:
+               <br>
+               <input type="number" id="totalam" name="totalam" required>
+             </label>
+
+             <br>
+             <br>
+
+        </fieldset>
+
+           <input type="submit" value="submit" onclick="handleSumbit()">
+
+      </form>
+
+    </div>
+
+
+
+
+
+
+    <script type="text/javascript">
+
+    let carts = document.querySelectorAll(".addcart");
+
+    let products = [
+      {
+        name: "My First and Last",
+        tag: "mfal",
+        price: 17,
+        inCart: 0
+      }
+    ];
+
+    for (let i=0; i < carts.length; i++) {
+      carts[i].addEventListener("click",() =>{
+        cartNumbers(products[i]);
+        totalCost(products[i]);
+      })
+    }
+
+    function onLoadCartNumbers() {
+      let productNumbers = localStorage.getItem("cartNumbers");
+
+      if (productNumbers) {
+        document.querySelector(".right span").textContent = productNumbers;
+      }
+    }
+
+    function cartNumbers(products) {
+
+      let productNumbers = localStorage.getItem("cartNumbers");
+
+      productNumbers = parseInt(productNumbers);
+
+      if (productNumbers) {
+        localStorage.setItem("cartNumbers", productNumbers + 1);
+        document.querySelector(".right span").textContent = productNumbers + 1;
+      }  else {
+        localStorage.setItem("cartNumbers", 1);
+        document.querySelector(".right span").textContent = 1;
+      }
+
+      setItems(products);
+
+
+    }
+
+    function setItems(products) {
+      let cartItems = localStorage.getItem("productsInCart");
+      cartItems = JSON.parse(cartItems);
+      if (cartItems != null) {
+        if (cartItems[products.tag] == undefined) {
+          cartItems = {
+            ...cartItems,
+            [products.tag]: product
+          }
+        }
+        cartItems[products.tag].inCart += 1;
+      } else {
+        products.inCart = 1;
+        cartItems = {
+          [products.tag]: products
+        }
+      }
+      localStorage.setItem("productsInCart", JSON.stringify(cartItems));
+    }
+
+    function totalCost(products) {
+      let cartCost = localStorage.getItem("totalCost");
+
+      if(cartCost != null) {
+        cartCost = parseInt(cartCost);
+        localStorage.setItem("totalCost", cartCost + products.price);
+      } else {
+        localStorage.setItem("totalCost", products.price);
+      }
+
+
+    }
+
+    function displayCart() {
+      let cartItems = localStorage.getItem("productsInCart");
+      cartItems = JSON.parse(cartItems);
+      let productTable = document.querySelector(".products");
+      let cartCost = localStorage.getItem("totalCost");
+      if(cartItems && productTable ){
+        productTable.innerHTML = "";
+        Object.values(cartItems).map(item => {
+          productTable.innerHTML += `
+          <div class = "product">
+             <img src = "../images/${item.tag}.jpg">
+            <span>${item.name}</span>
+          </div>
+          <div class = "price">
+            $${item.price}.00
+          </div>
+          <div class = "quantity">
+            <span>${item.inCart}</span>
+          </div>
+          <div class = "total">
+            $${item.inCart * item.price}.00
+          </div>
+          `;
+
+        });
+
+        productTable.innerHTML += `
+          <div class = "basketTotalContainer">
+          <h4 class = "totalTitle">Basket Total</h4>
+          <h4 class = "basketTotal">
+            $${cartCost},00
+          </h4>
+        `;
+      }
+
+    }
+
+
+    onLoadCartNumbers();
+    displayCart();
+
+
+
+    function handleSumbit() {
+      const name = document.getElementById("name").value;
+      const em = document.getElementById("em").value;
+      const number = document.getElementById("contact").value;
+      const cc = document.getElementById("ccnum").value;
+      const tot = document.getElementById("totalam").value;
+
+      localStorage.setItem("NAME", name);
+      localStorage.setItem("EMAIL", em);
+      localStorage.setItem("NUMBER", number);
+      localStorage.setItem("CC", cc);
+      localStorage.setItem("TOT", tot);
+
+      return;
+
+    }
+
+
+
+
+    </script>
+
+
+
+
+
+
+  </body>
+</html>

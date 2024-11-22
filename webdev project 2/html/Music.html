@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Dream Store</title>
+    <link rel="stylesheet" type="text/css" href="../DreamStore.css"/>
+  </head>
+  <body>
+    <div id = "navi">
+        <h1>DREAM STORE</h1>
+        <h2>MUSIC</h2>
+
+        <nav>
+          <ul>
+            <li class = "left"><a href="DreamStore.html">HOME</a></li>
+            <li class = "left"><a href="Music.html">MUSIC</a></li>
+            <li class = "right"><a href="cart.html">CART<span>0</span></a></li>
+          </ul>
+        </nav>
+    </div>
+
+    <div class = "slay">
+      <h2>MUSIC</h2>
+    </div>
+
+    <div class = "rows">
+      <div class = "column1">
+        <img src = "../images/mfal.jpg">
+        <br>
+        <div class = "details">
+          MY FIRST AND LAST
+          <br>
+          $17.00
+          <p><a class = "addcart" href = "#">Add to Cart</a></p>
+        </div>
+      </div>
+      <div class = "column1">
+        <img src = "../images/weyoung.jpg">
+        <br>
+        <div class = "details">
+          WE YOUNG
+          <br>
+          $30.00
+          <p><a class = "addcart" href = "#">Add to Cart</a></p>
+        </div>
+      </div>
+      <div class = "column1">
+        <img src = "../images/wgu.jpg">
+        <br>
+        <div class = "details">
+          WE GO UP
+          <br>
+          $30.00
+          <p><a class = "addcart" href = "#">Add to Cart</a></p>
+        </div>
+      </div>
+      <div class = "column1">
+        <img src = "../images/boom.jpg">
+        <br>
+        <div class = "details">
+          WE BOOM
+          <br>
+          $30.00
+          <p><a class = "addcart" href = "#">Add to Cart</a></p>
+        </div>
+      </div>
+      <div class = "column1">
+        <img src = "../images/reload.jpg">
+        <br>
+        <div class = "details">
+          RELOAD
+          <br>
+          $30.00
+          <p><a class = "addcart" href = "#">Add to Cart</a></p>
+        </div>
+      </div>
+      <div class = "column1">
+        <img src = "../images/hotsauce.jpg">
+        <br>
+        <div class = "details">
+          HOT SAUCE
+          <br>
+          $35.00
+          <p><a class = "addcart" href = "#">Add to Cart</a></p>
+        </div>
+      </div>
+      <div class = "column1">
+        <img src = "../images/helfu.jpg">
+        <br>
+        <div class = "details">
+          HELLO FUTURE
+          <br>
+          $35.00
+          <p><a class = "addcart" href = "#">Add to Cart</a></p>
+        </div>
+      </div>
+      <div class = "column1">
+        <img src = "../images/glimo.jpg">
+        <br>
+        <div class = "details">
+          GLITCH MODE
+          <br>
+          $35.00
+          <p><a class = "addcart" href = "#">Add to Cart</a></p>
+        </div>
+      </div>
+      <div class = "column1">
+        <img src = "../images/beatbox.jpg">
+        <br>
+        <div class = "details">
+          BEATBOX
+          <br>
+          $35.00
+          <p><a class = "addcart" href = "#">Add to Cart</a></p>
+        </div>
+      </div>
+
+      <script type="text/javascript">
+
+      let carts = document.querySelectorAll(".addcart");
+
+      let products = [
+        {
+          name: "My First and Last",
+          tag: "mfal",
+          price: 17,
+          inCart: 0
+        },
+        {
+          name: "We Young",
+          tag: "weyoung",
+          price: 30,
+          inCart: 0
+        },
+        {
+          name: "We Go Up",
+          tag: "wgu",
+          price: 30,
+          inCart: 0
+        },
+        {
+          name: "We Boom",
+          tag: "boom",
+          price: 30,
+          inCart: 0
+        },
+        {
+          name: "reload",
+          tag: "reload",
+          price: 30,
+          inCart: 0
+        },
+        {
+          name: "Hot Sauce",
+          tag: "hotsauce",
+          price: 35,
+          inCart: 0
+        },
+        {
+          name: "Hello Future",
+          tag: "helfu",
+          price: 35,
+          inCart: 0
+        },
+        {
+          name: "Glitch Mode",
+          tag: "glimo",
+          price: 35,
+          inCart: 0
+        },
+        {
+          name: "Beatbox",
+          tag: "beatbox",
+          price: 35,
+          inCart: 0
+        }
+      ];
+
+      for (let i=0; i < carts.length; i++) {
+        carts[i].addEventListener("click",() =>{
+          cartNumbers(products[i]);
+          totalCost(products[i]);
+        })
+      }
+
+      function onLoadCartNumbers() {
+        let productNumbers = localStorage.getItem("cartNumbers");
+
+        if (productNumbers) {
+          document.querySelector(".right span").textContent = productNumbers;
+        }
+      }
+
+      function cartNumbers(products) {
+
+        let productNumbers = localStorage.getItem("cartNumbers");
+
+        productNumbers = parseInt(productNumbers);
+
+        if (productNumbers) {
+          localStorage.setItem("cartNumbers", productNumbers + 1);
+          document.querySelector(".right span").textContent = productNumbers + 1;
+        }  else {
+          localStorage.setItem("cartNumbers", 1);
+          document.querySelector(".right span").textContent = 1;
+        }
+
+        setItems(products);
+
+
+      }
+
+      function setItems(products) {
+        let cartItems = localStorage.getItem("productsInCart");
+        cartItems = JSON.parse(cartItems);
+        if (cartItems != null) {
+          if (cartItems[products.tag] == undefined) {
+            cartItems = {
+              ...cartItems,
+              [products.tag]: products
+            }
+          }
+          cartItems[products.tag].inCart += 1;
+        } else {
+          products.inCart = 1;
+          cartItems = {
+            [products.tag]: products
+          }
+        }
+        localStorage.setItem("productsInCart", JSON.stringify(cartItems));
+      }
+
+      function totalCost(products) {
+        let cartCost = localStorage.getItem("totalCost");
+
+        if(cartCost != null) {
+          cartCost = parseInt(cartCost);
+          localStorage.setItem("totalCost", cartCost + products.price);
+        } else {
+          localStorage.setItem("totalCost", products.price);
+        }
+
+
+      }
+
+
+
+      onLoadCartNumbers();
+
+
+
+
+
+
+
+      </script>
+
+  </body>
+</html>
